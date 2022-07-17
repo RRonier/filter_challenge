@@ -7,7 +7,7 @@ services:
       - ./backend/.env
     image: postgres:13.4
     ports:
-      - "5432:${DATABASE_PORT}"
+      - 5432
     environment:
       - POSTGRES_USER=${DATABASE_USER}
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
