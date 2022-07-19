@@ -14,6 +14,19 @@ function useFetch<T>(
 ) {
   const [loading, setLoading] = useState<boolean>(true);
 
+  const onCallHTTP = (stream: Promise<any>) => {
+    setLoading(true);
+    stream
+      .then((resp) => {
+        onSuccess(resp.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        onError(error);
+        setLoading(false);
+      });
+  };
+
   useEffect(() => {
     if (eject) {
       setLoading(true);
@@ -29,7 +42,7 @@ function useFetch<T>(
     }
   }, []);
 
-  return { loading };
+  return { loading, onCallHTTP };
 }
 
 export default useFetch;
