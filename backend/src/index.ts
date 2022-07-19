@@ -29,6 +29,7 @@ app.get("/policies", async (req, res) => {
         ],
       }
     : {};
+  const count = await prisma.policy.count();
 
   const policies = await prisma.policy.findMany({
     skip: +skip,
@@ -54,7 +55,7 @@ app.get("/policies", async (req, res) => {
     },
   });
 
-  res.json(policies);
+  res.json({ policies, count });
 });
 
 app.get("/", (req, res) => {
