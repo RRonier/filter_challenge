@@ -1,5 +1,5 @@
 import express from "express";
-import { PrismaClient, Prisma } from "@prisma/client";
+import { PrismaClient, Prisma, PolicyStatus } from "@prisma/client";
 import cors from "cors";
 
 const app = express();
@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/policies", async (req, res) => {
-  const { search, skip = 0, take = 5 } = req.query;
+  const { search, skip = 0, take = 5, status } = req.query;
 
   const or: Prisma.PolicyWhereInput = search
     ? {
@@ -29,13 +29,26 @@ app.get("/policies", async (req, res) => {
         ],
       }
     : {};
-  const count = await prisma.policy.count();
+
+  const inStatus = status ? [status] : ["ACTIVE", "PENDING"];
+
+  const count = await prisma.policy.findMany({
+    where: {
+      ...or,
+      status: {
+        in: inStatus as unknown as PolicyStatus,
+      },
+    },
+  });
 
   const policies = await prisma.policy.findMany({
-    skip: +skip,
+    skip: +skip * +take,
     take: +take,
     where: {
       ...or,
+      status: {
+        in: inStatus as unknown as PolicyStatus,
+      },
     },
     select: {
       id: true,
@@ -55,7 +68,7 @@ app.get("/policies", async (req, res) => {
     },
   });
 
-  res.json({ policies, count });
+  res.json({ policies, count: count.length });
 });
 
 app.get("/", (req, res) => {
