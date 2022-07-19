@@ -1,3 +1,8 @@
+export interface IPoliciesResponse {
+  policies: IPolicies[];
+  count: number;
+}
+
 export interface IPolicies {
   id: string;
   customer: ICustomer;
