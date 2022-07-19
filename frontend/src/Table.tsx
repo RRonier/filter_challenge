@@ -87,7 +87,9 @@ const Table = () => {
                   ) => (
                     <tr key={id} className="border-b">
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        {i + 1}
+                        {params.skip > 1
+                          ? params.skip * params.take + i
+                          : i + 1}
                       </td>
                       <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                         {firstName} {lastName}
