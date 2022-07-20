@@ -41,6 +41,27 @@ export interface ParamsProps {
   insurance: string;
 }
 
+export interface TextFieldProps {
+  onHandleChange: (e: ChangeEvent<HTMLInputElement> | any) => void;
+  params: ParamsProps;
+}
+
+export interface DropDownProps {
+  onHandleChange: (e: ChangeEvent<HTMLInputElement> | any) => void;
+  providersList?: IProvider[];
+  insurancesList?: IInsuranceTypes[];
+  name: string;
+  value: string;
+  placeholder: string;
+  text: string;
+}
+
+export interface ButtonProps {
+  onClick: () => void;
+  label: string;
+  type: string;
+}
+
 export interface TableProps {
   data: IPolicies[];
   count: number;

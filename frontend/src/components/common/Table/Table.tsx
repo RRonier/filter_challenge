@@ -2,6 +2,9 @@ import Pagination from "../Pagination/Pagination";
 import Spinner from "../Spinner/Spinner";
 import { TableProps } from "../../../types/types";
 import Badge from "../Badge/Badge";
+import { TextField } from "../TextField/TextField";
+import DropDown from "../DropDown/DropDown";
+import Button from "../Button/Button";
 
 const Table = ({
   data,
@@ -22,113 +25,27 @@ const Table = ({
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
           <div className="overflow-hidden rounded-lg shadow-sm">
-            <div className="flex justify-start">
-              <div className="mb-3 xl:w-96">
-                <input
-                  type="search"
-                  name="search"
-                  onChange={onHandleChange}
-                  value={params.search}
-                  className="
-                    form-control
-                    block
-                    w-full  
-                    px-3
-                    py-1.5
-                    text-base
-                    font-normal
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white 
-                    focus:border-blue-600 focus:outline-none"
-                  id="exampleSearch2"
-                  placeholder="Search by name"
-                />
-              </div>
-            </div>
-            <div className="flex justify-start">
-              <div className="mb-3 xl:w-96">
-                <select
-                  name="provider"
-                  value={params.provider}
-                  onChange={onHandleChange}
-                  placeholder="Insurance Provider"
-                  className="form-select appearance-none
-                  block
-                  w-full
-                  px-3
-                  py-1.5
-                  text-base
-                  font-normal
-                  text-gray-700
-                  bg-white bg-clip-padding bg-no-repeat
-                  border border-solid border-gray-300
-                  rounded
-                  transition
-                  ease-in-out
-                  m-0
-                  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                  aria-label="Default select example"
-                >
-                  <option value="">All Providers</option>
-                  {providersList.map(({ provider }, key) => (
-                    <option key={key} value={provider}>
-                      {provider}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <div className="flex justify-start">
-              <div className="mb-3 xl:w-96">
-                <select
-                  name="insurance"
-                  value={params.insurance}
-                  onChange={onHandleChange}
-                  placeholder="Insurance Type"
-                  className="form-select appearance-none
-                  block
-                  w-full
-                  px-3
-                  py-1.5
-                  text-base
-                  font-normal
-                  text-gray-700
-                  bg-white bg-clip-padding bg-no-repeat
-                  border border-solid border-gray-300
-                  rounded
-                  transition
-                  ease-in-out
-                  m-0
-                  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                  aria-label="Default select example"
-                >
-                  <option value="">All Insurances</option>
-                  {insurancesList.map(({ insuranceType }, key) => (
-                    <option key={key} value={insuranceType}>
-                      {insuranceType}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              onClick={onSearch}
-            >
-              Search
-            </button>
-            <button
-              className="bg-yellow-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              onClick={onReset}
-            >
-              Clear
-            </button>
+            <TextField onHandleChange={onHandleChange} params={params} />
+            <DropDown
+              name="provider"
+              value={params.provider}
+              onHandleChange={onHandleChange}
+              placeholder="Insurance Provider"
+              text="All Providers"
+              providersList={providersList}
+            />
+            <DropDown
+              name="insurance"
+              value={params.insurance}
+              onHandleChange={onHandleChange}
+              placeholder="Insurance Provider"
+              text="All Insurances"
+              insurancesList={insurancesList}
+            />
+            <Button type="search" label="Search" onClick={onSearch} />
+            <span className="m-4">
+              <Button type="reset" label="Reset" onClick={onReset} />
+            </span>
             {conditionalSpinner}
             <table className="min-w-full">
               <thead className="border-b bg-gray-100">
