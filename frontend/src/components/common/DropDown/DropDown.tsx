@@ -10,7 +10,7 @@ const DropDown = ({
   text,
 }: DropDownProps) => (
   <div className="flex justify-start">
-    <div className="mb-3 xl:w-52">
+    <div className="mb-3 xl:w-44">
       <select
         name={name}
         value={value}
