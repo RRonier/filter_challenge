@@ -10,7 +10,7 @@ const DropDown = ({
   text,
 }: DropDownProps) => (
   <div className="flex justify-start">
-    <div className="mb-3 xl:w-96">
+    <div className="mb-3 xl:w-52">
       <select
         name={name}
         value={value}
@@ -18,7 +18,7 @@ const DropDown = ({
         placeholder={placeholder}
         className="form-select appearance-none
             block
-            w-full
+            w-40
             px-3
             py-1.5
             text-base

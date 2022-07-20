@@ -2,7 +2,7 @@ import { TextFieldProps } from "../../../types/types";
 
 export const TextField = ({ onHandleChange, params }: TextFieldProps) => (
   <div className="flex justify-start">
-    <div className="mb-3 xl:w-96">
+    <div className="mb-3 xl:w-60">
       <input
         type="search"
         name="search"
@@ -11,7 +11,7 @@ export const TextField = ({ onHandleChange, params }: TextFieldProps) => (
         className="
             form-control
             block
-            w-full  
+            w-48
             px-3
             py-1.5
             text-base
