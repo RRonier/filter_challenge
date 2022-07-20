@@ -1,4 +1,4 @@
-## General questions - Responses
+## General questions - Answers
 
 - How much time did you spend working on the solution?
 * I worked almost five hours, but not continuously.
