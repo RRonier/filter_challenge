@@ -43,7 +43,7 @@ export interface ParamsProps {
 
 export interface TextFieldProps {
   onHandleChange: (e: ChangeEvent<HTMLInputElement> | any) => void;
-  params: ParamsProps;
+  value: string;
 }
 
 export interface DropDownProps {
@@ -60,6 +60,7 @@ export interface ButtonProps {
   onClick: () => void;
   label: string;
   type: string;
+  disabled?: boolean;
 }
 
 export interface TableProps {

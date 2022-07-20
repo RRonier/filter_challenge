@@ -1,13 +1,13 @@
 import { TextFieldProps } from "../../../types/types";
 
-export const TextField = ({ onHandleChange, params }: TextFieldProps) => (
+export const TextField = ({ onHandleChange, value }: TextFieldProps) => (
   <div className="flex justify-start">
     <div className="mb-3 xl:w-60">
       <input
         type="search"
         name="search"
         onChange={onHandleChange}
-        value={params.search}
+        value={value}
         className="
             form-control
             block

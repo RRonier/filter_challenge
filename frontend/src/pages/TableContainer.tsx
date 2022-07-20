@@ -52,7 +52,11 @@ const TableContainer = () => {
   };
 
   const onSearch = () => {
-    onCallHTTP(getPolicies({ ...params }));
+    setParams({
+      ...params,
+      skip: 0,
+    });
+    onCallHTTP(getPolicies({ ...params, skip: 0 }));
   };
 
   const onReset = () => {

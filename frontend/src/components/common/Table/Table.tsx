@@ -26,7 +26,10 @@ const Table = ({
         <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
           <div className="overflow-hidden rounded-lg shadow-sm">
             <div className="flex max-w-4 mb-2">
-              <TextField onHandleChange={onHandleChange} params={params} />
+              <TextField
+                onHandleChange={onHandleChange}
+                value={params.search}
+              />
               <DropDown
                 name="provider"
                 value={params.provider}
@@ -44,7 +47,14 @@ const Table = ({
                 insurancesList={insurancesList}
               />
               <div>
-                <Button type="search" label="Search" onClick={onSearch} />
+                <Button
+                  disabled={
+                    !params.insurance && !params.provider && !params.search
+                  }
+                  type="search"
+                  label="Search"
+                  onClick={onSearch}
+                />
                 <span className="m-4">
                   <Button type="reset" label="Reset" onClick={onReset} />
                 </span>
