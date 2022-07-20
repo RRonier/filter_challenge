@@ -1,4 +1,6 @@
-export interface IPoliciesResponse {
+import { ChangeEvent } from "react";
+
+export interface PoliciesResponseProps {
   policies: IPolicies[];
   count: number;
   providers: IProvider[];
@@ -29,6 +31,27 @@ export interface ICustomer {
   firstName: string;
   lastName: string;
   dateOfBirth: Date;
+}
+
+export interface ParamsProps {
+  search: string;
+  skip: number;
+  take: number;
+  provider: string;
+  insurance: string;
+}
+
+export interface TableProps {
+  data: IPolicies[];
+  count: number;
+  params: ParamsProps;
+  providersList: IProvider[];
+  insurancesList: IInsuranceTypes[];
+  loading: boolean;
+  paginate: (page: number) => void;
+  onHandleChange: (e: ChangeEvent<HTMLInputElement> | any) => void;
+  onSearch: () => void;
+  onReset: () => void;
 }
 
 export enum InsuranceType {

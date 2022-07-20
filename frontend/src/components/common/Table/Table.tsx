@@ -1,81 +1,20 @@
-import { useState, ChangeEvent } from "react";
-import Badge from "./Badge";
-import useHTTP from "./hooks/useHTTP";
-import { getPolicies } from "./services/policiesService";
-import {
-  IPolicies,
-  IPoliciesResponse,
-  IProvider,
-  IInsuranceTypes,
-} from "./interfaces/customer";
-import Pagination from "./common/Pagination";
+import Pagination from "../Pagination/Pagination";
+import Spinner from "../Spinner/Spinner";
+import { TableProps } from "../../../types/types";
+import Badge from "../Badge/Badge";
 
-import Spinner from "./common/Spinner/Spinner";
-
-const Table = () => {
-  const [data, setData] = useState<IPolicies[]>([]);
-  const [count, setCount] = useState<number>(0);
-  const [providersList, setProvidersList] = useState<IProvider[]>([]);
-  const [insurancesList, setInsurancesList] = useState<IInsuranceTypes[]>([]);
-
-  const [params, setParams] = useState({
-    search: "",
-    skip: 1,
-    take: 10,
-    provider: "",
-    insurance: "",
-  });
-
-  const { loading, onCallHTTP } = useHTTP(
-    () => getPolicies({ ...params, skip: params.skip - 1 }),
-    ({ policies, count, providers, insuranceTypes }: IPoliciesResponse) => {
-      setData(policies);
-      setCount(count);
-      setProvidersList(providers);
-      setInsurancesList(insuranceTypes);
-    },
-    (error) => console.log(error)
-  );
-
-  const paginate = (page: number) => {
-    setParams({
-      ...params,
-      skip: page,
-    });
-    onCallHTTP(getPolicies({ ...params, skip: page - 1 }));
-  };
-
-  const onHandleChange = (e: ChangeEvent<HTMLInputElement> | any) => {
-    const { name, value } = e.target;
-    setParams({
-      ...params,
-      [name]: value,
-    });
-  };
-
-  const onSearch = () => {
-    onCallHTTP(getPolicies({ ...params }));
-  };
-
-  const onReset = () => {
-    setParams({
-      search: "",
-      skip: 1,
-      take: 10,
-      provider: "",
-      insurance: "",
-    });
-    onCallHTTP(
-      getPolicies({
-        search: "",
-        skip: 1,
-        take: 10,
-        provider: "",
-        insurance: "",
-      })
-    );
-  };
-
+const Table = ({
+  data,
+  count,
+  params,
+  providersList,
+  insurancesList,
+  loading,
+  paginate,
+  onHandleChange,
+  onSearch,
+  onReset,
+}: TableProps) => {
   const conditionalSpinner = loading ? <Spinner /> : null;
 
   return (
