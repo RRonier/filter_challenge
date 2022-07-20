@@ -25,27 +25,31 @@ const Table = ({
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
           <div className="overflow-hidden rounded-lg shadow-sm">
-            <TextField onHandleChange={onHandleChange} params={params} />
-            <DropDown
-              name="provider"
-              value={params.provider}
-              onHandleChange={onHandleChange}
-              placeholder="Insurance Provider"
-              text="All Providers"
-              providersList={providersList}
-            />
-            <DropDown
-              name="insurance"
-              value={params.insurance}
-              onHandleChange={onHandleChange}
-              placeholder="Insurance Provider"
-              text="All Insurances"
-              insurancesList={insurancesList}
-            />
-            <Button type="search" label="Search" onClick={onSearch} />
-            <span className="m-4">
-              <Button type="reset" label="Reset" onClick={onReset} />
-            </span>
+            <div className="flex max-w-4 mb-2">
+              <TextField onHandleChange={onHandleChange} params={params} />
+              <DropDown
+                name="provider"
+                value={params.provider}
+                onHandleChange={onHandleChange}
+                placeholder="Insurance Provider"
+                text="All Providers"
+                providersList={providersList}
+              />
+              <DropDown
+                name="insurance"
+                value={params.insurance}
+                onHandleChange={onHandleChange}
+                placeholder="Insurance Provider"
+                text="All Insurances"
+                insurancesList={insurancesList}
+              />
+              <div>
+                <Button type="search" label="Search" onClick={onSearch} />
+                <span className="m-4">
+                  <Button type="reset" label="Reset" onClick={onReset} />
+                </span>
+              </div>
+            </div>
             {conditionalSpinner}
             <table className="min-w-full">
               <thead className="border-b bg-gray-100">
