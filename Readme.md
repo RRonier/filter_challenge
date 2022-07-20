@@ -1,123 +1,19 @@
-# Feather Take Home Assessment
-
-Thank you for applying at Feather and taking the time to do this home assessment.
-
-The goal of this project is to let you **show off your coding and problem-solving skills**, on a task that resembles the kind of work you’ll be doing with us.
-
-This coding challenge applies to **frontend, backend, and full-stack roles**. Depending on the position you are applying for, you can focus on your specific area.  
-
-You can spend as little or as much time as you like on this project. We've added some initial boilerplate to help you get started, but **feel free to refactor every part of this app as you may seem fit**.
-
-1. Start by reading the [Engineering challenge](#Engineering-challenge) for the position you've applied for and don't forget about the **Acceptance criteria** to have a clear idea of the requirements.
-2. Use the [Getting started](#Getting-started) guide to set up a local version of the project on your machine.
-3. Take a look at the [Data structure](#Data-structure) and [API](#API) to know what the data looks like.
-4. Finish by answering a [couple of questions](#General-questions) about the project. You can answer them on this very same file.
-
-## Engineering challenge
-
-We've prepared several different user stories to work on. Depending on what position you applied to, pick one of them:  
-- [Backend](./backend-readme.md)
-- [Frontend](./frontend-readme.md)
-- [Full Stack](./full-stack-readme.md)
-
-
-## Task requirements
-
-- Make sure your feature **works as expected**
-- Your code is **easy to understand** and follows best practices
-- The project **runs with one command,** and without any external configuration
-- **Your code has tests** to make sure the functionalities work as expected
-
-## Getting started
-
-1. Make sure you have [Docker](https://www.docker.com/products/docker-desktop/) installed on your machine
-2. Set up the environment variables
-
-```bash
-cp ./backend/.env.example ./backend/.env
-```
-
-3. Build and run the Docker image:
-
-```bash
-cd backend
-docker-compose build
-docker-compose up
-```
-
-4. On a new terminal, run the migration and the seed script to add initial data:
-
-```bash
-cd backend
-docker compose exec backend yarn prisma migrate dev
-docker compose exec backend yarn prisma db seed
-```
-
-5. That’s it!
-
-You can see the app on `http://localhost:3000`
-
-The API should be running on `http://localhost:4000`
-
-** Note **
-If you want to install new dependencies, you'll have to do it inside the docker container. To do that, you can use the following command:
-
-```
-docker compose exec {backend OR frontend} yarn add {the_name_of_the_package}
-```
-
-Make sure to replace the values between the curly braces `{}` with the correct ones.
-
-## API
-
-After following the [Getting started](#Getting-started) guide, the backend should be running on port `4000`. The backend currently have one endpoint:
-
-| Request type | Path        | Query Params | Example                   |
-| ------------ | ----------- | ------------ | ------------------------- |
-| `GET`        | `/policies` | `search`     | `/policies?search=BARMER` |
-
-Feel free to update or add more endpoints to accommodate or improve your solution.
-
-## Data structure
-
-### Policy
-
-| fields         | type                            | comment                                       |
-| -------------- | ------------------------------- | --------------------------------------------- |
-| id             | string                          | Used to identify the policy                   |
-| customer       | [Customer](#Customer)           | Object holding the customer's informations    |
-| provider       | string                          | Name of the provider (Allianz, AXA…)          |
-| insuranceType  | [InsuranceType](#InsuranceType) | Type of the insurance (Liability, Household…) |
-| status         | [PolicyStatus](#PolicyStatus)   | Status of the insurance (Active, Cancelled)   |
-| startDate      | date                            | Date when the policy should start             |
-| endDate        | date                            | Date when the policy ends                     |
-| createdAt      | date                            | Date when the record was created              |
-
-### Customer
-
-| fields      | type   | comment                       |
-| ----------- | ------ | ----------------------------- |
-| id          | uuid   | Used to identify the customer |
-| firstName   | string | Customer’s first name         |
-| lastName    | string | Customer’s last name          |
-| dateOfBirth | date   | Customer’s date of birth      |
-
-### InsuranceType
-
-`InsuranceType` can be of `LIABILITY`, `HOUSEHOLD`, `HEALTH`
-
-### PolicyStatus
-
-`PolicyStatus` can be of `ACTIVE`, `PENDING`, `CANCELLED` and `DROPPED_OUT`
-
-## General questions
+## General questions - Responses
 
 - How much time did you spend working on the solution?
-- What’s the part of the solution you are most proud of?
+* I worked almost five hours, but not continuously.
 
+- What’s the part of the solution you are most proud of?
   _You can share a code snippet here if you feel like it_
+  * The folder structure is the part I'm proud the most. I triyed to set the project as if it was a mid-size project, I triyed to extract as much components as I could and to make them reusable throughtout the solution, and separate the components from the containers as much as I could. 
 
 - If you had more time, what other things you would like to do?
+* If I had more time I would like to add tests to ensure that my code works as expected for all the possible use cases.
 - Do you have any feedback regarding this coding challenge?  
-
   _Is the initial setup working?, is something missing?, or any other comment_
+* Regarding this question, I should highlight a few points.
+1- The commands to set up the projects are not written correctly. I assumed this is a pitfall for the developer, and a tricky part of the challenge for those whose haven't use Docker before. The correct command is docker-compose, not docker compose.
+2- I was unable to install dependencies easily, so I added --ignore-engines to the instalation to be able to install dependencies properly.
+3- This is supposed to be a Frontend challenge, but I had to work on the backend as well, in order to deliver the best solution to the filter part. Maybe that's part of the complexity of the challenge, just saying.
+
+PD: I enjoyed this challenge. Thank you very much
