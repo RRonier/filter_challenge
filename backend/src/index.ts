@@ -1,5 +1,5 @@
 import express from "express";
-import { PrismaClient, Prisma, PolicyStatus } from "@prisma/client";
+import { PrismaClient, Prisma } from "@prisma/client";
 import cors from "cors";
 
 const app = express();
@@ -10,12 +10,17 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/policies", async (req, res) => {
-  const { search, skip = 0, take = 5, status } = req.query;
+  const {
+    search,
+    skip = 0,
+    take = 5,
+    insurance = "",
+    provider = "",
+  } = req.query;
 
   const or: Prisma.PolicyWhereInput = search
     ? {
         OR: [
-          { provider: { contains: search as string, mode: "insensitive" } },
           {
             customer: {
               firstName: { contains: search as string, mode: "insensitive" },
@@ -30,25 +35,43 @@ app.get("/policies", async (req, res) => {
       }
     : {};
 
-  const inStatus = status ? [status] : ["ACTIVE", "PENDING"];
+  let types: any = {};
+  if (insurance) types["insuranceType"] = insurance;
+  if (provider) types["provider"] = provider;
 
   const count = await prisma.policy.findMany({
     where: {
       ...or,
       status: {
-        in: inStatus as unknown as PolicyStatus,
+        in: ["ACTIVE", "PENDING"],
       },
+      ...types,
+    },
+  });
+
+  const providers = await prisma.policy.findMany({
+    distinct: ["provider"],
+    select: {
+      provider: true,
+    },
+  });
+
+  const insuranceTypes = await prisma.policy.findMany({
+    distinct: ["insuranceType"],
+    select: {
+      insuranceType: true,
     },
   });
 
   const policies = await prisma.policy.findMany({
-    skip: +skip * +take,
+    skip: search ? 0 : +skip * +take,
     take: +take,
     where: {
       ...or,
       status: {
-        in: inStatus as unknown as PolicyStatus,
+        in: ["ACTIVE", "PENDING"],
       },
+      ...types,
     },
     select: {
       id: true,
@@ -68,7 +91,7 @@ app.get("/policies", async (req, res) => {
     },
   });
 
-  res.json({ policies, count: count.length });
+  res.json({ policies, count: count.length, providers, insuranceTypes });
 });
 
 app.get("/", (req, res) => {
