@@ -1,6 +1,16 @@
 export interface IPoliciesResponse {
   policies: IPolicies[];
   count: number;
+  providers: IProvider[];
+  insuranceTypes: IInsuranceTypes[];
+}
+
+export interface IInsuranceTypes {
+  insuranceType: InsuranceType;
+}
+
+export interface IProvider {
+  provider: string;
 }
 
 export interface IPolicies {
