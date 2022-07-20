@@ -8,7 +8,10 @@
   * The folder structure is the part I'm proud the most. I triyed to set the project as if it was a mid-size project, I triyed to extract as much components as I could and to make them reusable throughtout the solution, and separate the components from the containers as much as I could. 
 
 - If you had more time, what other things you would like to do?
-* If I had more time I would like to add tests to ensure that my code works as expected for all the possible use cases.
+* It would be great to write some test cases to ensure the code is working as we expected.
+* Create a generic function to manipulate pagination in backend-side.
+* Add other endpoints to get customs filters.
+* Use styled-components instead of tailwind. You can find options like React Material (MUI) or AntD.
 - Do you have any feedback regarding this coding challenge?  
   _Is the initial setup working?, is something missing?, or any other comment_
 * Regarding this question, I should highlight a few points.
